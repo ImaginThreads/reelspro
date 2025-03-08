@@ -8,7 +8,8 @@ export const VIDEO_DIMENTIONS = {
 
 export interface IVideo{
     _id?: mongoose.Types.ObjectId;
-    title: string; description: string, 
+    title: string;
+    description: string, 
     videoUrl: string;
     thumbnailUrl: string;
     controls?: boolean;
@@ -16,20 +17,25 @@ export interface IVideo{
         height: number
         width: number;
         quality?: number
-        createdAt: Date
-        updatedAt: Date
+        createdAt?: Date
+        updatedAt?: Date
     }
+
 }
 
-const videoSchema = new Schema<IVedio>({
+const videoSchema = new Schema<IVideo>({
     title: {type: String, required:true},
     description: {type: String, required: true},
     videoUrl:{type: String, required: true},
+    thumbnailUrl: { type: String, required: true },
     controls: {type: Boolean, default: true},
     transformation: {
         height: {type: Number, default: VIDEO_DIMENTIONS.height},
         width: {type: Number, default: VIDEO_DIMENTIONS.width},
-        quality: {type: Number, min: 1, max: 100}
+        quality: {type: Number, min: 1, max: 100},
+        createdAt: { type: Date, default: Date.now },
+        updatedAt: { type: Date, default: Date.now }
+        
     },
 },{timestamps: true})
 
